@@ -23,14 +23,20 @@ import math
 from colorama import Fore, Style
 
 class WishSimulation:
+    """This is the main class, it is not a parent class
+    as I cannot find any way it should be a parent class. This
+    class  acts as the primary network for the other three classes
+    and does the actual simulation"""
     def main():
 
         five_star_pity = 0
         four_star_pity = 0
 
+        # helps pre-determine the set pity for your four star and five star character/weapon
         five_star_pity = int(input(f"{Fore.YELLOW}\033[1m" + "★ 5 Star Pity (1-89)" + "\033[0m" +  f"{Style.RESET_ALL}" + ": "))
         four_star_pity = int(input(f"{Fore.MAGENTA}\033[1m" + "✯ 4 Star Pity (1-9)" + "\033[0m" +  f"{Style.RESET_ALL}" + ": "))
 
+        # helps pre-determined if the character/weapon is guranteed to be the promotional
         five_star_guranteed = int(input(f"{Fore.YELLOW}\033[1m" + "★ 5 Star Guaranteed" + "\033[0m" +  f"{Style.RESET_ALL}" + " | " + "\033[1m" + "(1) True" + "\033[0m" + " or " + "\033[1m" + "(2) False" + "\033[0m" + ": "))
         four_star_guranteed = int(input(f"{Fore.MAGENTA}\033[1m" + "✯ 4 Star Guaranteed" + "\033[0m" +  f"{Style.RESET_ALL}" + " | " + "\033[1m" + "(1) True" + "\033[0m" + " or " + "\033[1m" + "(2) False" + "\033[0m" + ": "))
 
@@ -45,29 +51,29 @@ class WishSimulation:
             if (four_star_pity > 10) or (five_star_pity > 90):
 
                 print(f"{Fore.RED}\033[1m" + "ERROR | " + "\033[0m" + "Something has gone wrong, maximum pity has been exceeded.")
-                print(f"\033[1m" + "✯ 4 Star Pity: " + "\033[0m" + f"{four_star_pity}")
+                print(f"\033[1m" + "✯ 4 Star Pity: " + "\033[0m" + f"{four_star_pity}") 
                 print(f"\033[1m" + "★ 5 Star Pity: " + "\033[0m" + f"{five_star_pity}")
 
             else:
 
                 for x in range(wish_type):
                 
-                    five_star_pity += 1
-                    four_star_pity += 1
+                    five_star_pity += 1 # pity is added on after every wish 
+                    four_star_pity += 1 # pity is added on after every wish 
 
-                    if five_star_pity == 90:
+                    if five_star_pity == 90: # you are guranteed a 5 star after 90 wishes
                     
                         five_star_pull, five_star_guranteed = FiveStarRoll.roll_5_star(five_star_guranteed)
                         print(f"{Fore.YELLOW}★ {five_star_pull}{Style.RESET_ALL}") 
 
-                        five_star_pity = 0
+                        five_star_pity = 0 # five star pity resets to zero after getting a five star
 
-                    elif four_star_pity == 10:
+                    elif four_star_pity == 10: # you are guranteed a 4 star after 10 wishes
                     
                         four_star_pull, four_star_guranteed = FourStarRoll.roll_4_star(four_star_guranteed)
                         print(f"{Fore.MAGENTA}✯ {four_star_pull}{Style.RESET_ALL}") 
 
-                        four_star_pity = 0
+                        four_star_pity = 0 # four star pity resets to zero after getting a four star
 
                     else:
                     
@@ -78,14 +84,14 @@ class WishSimulation:
                             five_star_pull, five_star_guranteed = FiveStarRoll.roll_5_star(five_star_guranteed)
                             print(f"{Fore.YELLOW}★ {five_star_pull}{Style.RESET_ALL}") 
 
-                            five_star_pity = 0
+                            five_star_pity = 0 # five star pity resets to zero after getting a five star
 
                         elif (wish > 0.600) and (wish <= 5.100): #four star 5.100%
                         
                             four_star_pull, four_star_guranteed = FourStarRoll.roll_4_star(four_star_guranteed   )
                             print(f"{Fore.MAGENTA}✯ {four_star_pull}{Style.RESET_ALL}") 
 
-                            four_star_pity = 0
+                            four_star_pity = 0 # four star pity resets to zero after getting a four star
 
                         elif (wish >= 5.100) and (wish < 100): #three star 94.300%
                         
@@ -93,7 +99,12 @@ class WishSimulation:
                             print(f"{Fore.CYAN}✰ {three_star_pull}{Style.RESET_ALL}") 
 
 class ThreeStarRoll:
+    """This class will hold and roll the three stars"""
     def roll_3_star():
+
+        # 3 stars do not have a 50/50 or gurantee system, 
+        # which is why it does not require code that would 
+        # randomly decide the items in the list
     
         three_star_pool = ["Slingshot", "Raven Bow", "Thrilling Tales of Dragon Slayers", "Black Tassal", 
         "Bloodstained Greatsword", "Skyrider Sword", "Cool Steel", "Sharpshooter's Oath", "Emerald Orb",
@@ -103,6 +114,7 @@ class ThreeStarRoll:
         return three_star_pull
 
 class FourStarRoll:
+    """This class will hold and roll the four stars"""
     def roll_4_star(four_star_guranteed):
     
         if four_star_guranteed == 1:
@@ -142,6 +154,7 @@ class FourStarRoll:
         return four_star_pull, four_star_guranteed
 
 class FiveStarRoll:
+    """This class will hold and roll the five stars"""
     def roll_5_star(five_star_guranteed):
 
         if five_star_guranteed == 1: 
@@ -167,7 +180,3 @@ class FiveStarRoll:
         return five_star_pull, five_star_guranteed
 
 WishSimulation.main()
-
-
-
- 
