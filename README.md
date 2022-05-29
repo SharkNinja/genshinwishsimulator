@@ -15,7 +15,7 @@ The current version of the Hilo Specification has:
 - 3 modules
 - 4 classes
 - 4 functions
-- 169 lines of code
+- 182 lines of code
 
 ## Requirements
 You will NEED the following modules installed:
